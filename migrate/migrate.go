@@ -1,8 +1,8 @@
 package main
 
 import (
-	initializers "golang-crud/Initializers"
-	"golang-crud/models"
+	initializers "GoginOrmDocker/Initializers"
+	"GoginOrmDocker/models"
 )
 
 func init() {

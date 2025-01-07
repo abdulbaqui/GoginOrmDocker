@@ -1,8 +1,8 @@
 package main
 
 import (
-	initializers "golang-crud/Initializers"
-	"golang-crud/controllers"
+	initializers "GoginOrmDocker/Initializers"
+	"GoginOrmDocker/controllers"
 
 	"github.com/gin-gonic/gin"
 )
