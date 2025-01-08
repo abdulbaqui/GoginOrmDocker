@@ -10,4 +10,6 @@ COPY . .
 
 RUN go build -o main .
 
-CMD ["./main"]
+RUN chmod +x /app/migrate.sh
+
+CMD ["./migrate.sh","./main"]
