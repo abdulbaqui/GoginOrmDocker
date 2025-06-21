@@ -68,6 +68,7 @@ func GetSpecific(c *gin.Context) {
 
 }
 
+// Update User
 func UpdateUser(c *gin.Context) {
 	id := c.Param("id")
 	var body struct {
