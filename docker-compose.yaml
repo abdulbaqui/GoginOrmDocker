@@ -1,10 +1,10 @@
 services:
   postgres:
     image: postgres:latest
-    container_name: postgres_dockerizing
+    container_name: postgres
     hostname: postgres
     ports:
-      - 5000:5432
+      - 5432:5432
     restart: always
     environment:
       POSTGRES_USER: ${DB_USER}
@@ -18,12 +18,14 @@ services:
     networks:
       - fullstack
   api:
-    container_name: api_dockerizing
+    container_name: backend
     build: .
     env_file:
       - .env
+    environment:
+      - DB_HOST=postgres
     ports:
-      - 3000:3000
+      - 3000:5000
     restart: always
     volumes:
       - api_volume:/usr/src/app/

@@ -1,6 +1,7 @@
 package initializers
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -12,10 +13,22 @@ var DB *gorm.DB
 
 func ConnectToDB() {
 	var err error
-	dsn := "host=" + os.Getenv("DB_HOST") + " user=" + os.Getenv("DB_USER") + " password=" + os.Getenv("DB_PASSWORD") + " dbname=" + os.Getenv("DB_NAME") + " port=" + os.Getenv("DB_PORT")
-	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	dsn := fmt.Sprintf(
+		"host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
+		os.Getenv("DB_HOST"),
+		os.Getenv("DB_USER"),
+		os.Getenv("DB_PASSWORD"),
+		os.Getenv("DB_NAME"),
+		os.Getenv("DB_PORT"),
+	)
 
+	log.Printf("Attempting to connect to database with DSN: %s", dsn)
+
+	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
+		log.Printf("Failed to connect to database: %v", err)
 		log.Fatal("Failed to connect to database")
 	}
+
+	log.Println("Successfully connected to database")
 }
