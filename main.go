@@ -3,13 +3,20 @@ package main
 import (
 	initializers "GoginOrmDocker/Initializers"
 	"GoginOrmDocker/controllers"
+	"log"
 
 	"github.com/gin-gonic/gin"
 )
 
 func init() {
 	initializers.LoadEnvVariables()
-	initializers.ConnectToDB()
+
+	// Try to connect to database, but don't fail if it's not available
+	err := initializers.ConnectToDB()
+	if err != nil {
+		log.Printf("Warning: Database connection failed: %v", err)
+		log.Println("Application will start without database connection")
+	}
 }
 
 func main() {
