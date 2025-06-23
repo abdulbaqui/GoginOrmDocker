@@ -16,7 +16,10 @@ func PostCreate(c *gin.Context) {
 		Age    int
 		Gender bool
 	}
-	c.Bind(&body)
+	if err := c.ShouldBindJSON(&body); err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
 	// Create Post
 
 	user := models.User{Name: body.Name, Age: body.Age, Gender: body.Gender}
@@ -76,7 +79,10 @@ func UpdateUser(c *gin.Context) {
 		Age    int
 		Gender bool
 	}
-	c.Bind(&body)
+	if err := c.ShouldBindJSON(&body); err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
 	var user models.User
 	initializers.DB.First(&user, id)
 
